@@ -441,29 +441,14 @@
         </div>
     </section>
 
-    <!-- FOOTER & NETLIFY FORM -->
-    <footer>
-        <h4 style="font-family: var(--font-title); font-size: 3rem; color: var(--accent); margin-bottom: 20px;">Coffee Time</h4>
-        <p style="font-size: 1.1rem;">Centre commercial du Bultia<br>Rue Neuve 41, 6280 Gerpinnes</p>
-        <div class="hours">Ouvert tous les jours de 8h30 à 17h30<br>Sauf le lundi (Fermé)</div>
-        
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px auto; max-width: 600px;">
-
-        <h4 style="font-family: var(--font-title); font-size: 2.2rem; color: var(--accent); margin-bottom: 15px;">Privatisation & Événements</h4>
-        <p style="color: #D7CCC8; max-width: 700px; margin: 0 auto 25px; font-size: 1.05rem; line-height: 1.8;">Vous cherchez un lieu chaleureux pour votre prochain afterwork ou événement privé ? Parlons de votre projet autour d'une bonne tasse !</p>
-        <a id="dyn-btn-mail" class="btn" style="margin-bottom: 20px; border-radius: 30px;">✉️ Discutons de votre événement</a>
-
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px auto; max-width: 600px;">
-
-        <h4 style="font-family: var(--font-title); font-size: 2rem; margin-bottom: 5px; color: var(--white);">Abonnez-vous à notre Newsletter</h4>
-        <p style="font-size: 1rem; color: #D7CCC8;">Des nouvelles origines, des ateliers, de la bonne humeur.</p>
-        
-        <!-- Formulaire "Netlify Forms" -->
-        <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form">
-            <input type="hidden" name="form-name" value="newsletter" />
-            <input type="email" name="email" placeholder="Votre adresse e-mail" required>
-            <button type="submit" class="btn">S'inscrire</button>
-        </form>
+<!-- Formulaire "Netlify Forms" -->
+<form name="newsletter" method="POST" action="/" data-netlify="true" class="newsletter-form">
+    <!-- Champ caché obligatoire pour que Netlify reconnaisse le formulaire -->
+    <input type="hidden" name="form-name" value="newsletter" />
+    
+    <input type="email" name="email" placeholder="Votre adresse e-mail" required>
+    <button type="submit" class="btn">S'inscrire</button>
+</form>
     </footer>
 
     <!-- LE MOTEUR JAVASCRIPT QUI CONSTRUIT LE SITE -->
