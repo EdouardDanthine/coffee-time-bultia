@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Time - L'Art du Café</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- ============================================================================================== -->
+    <!-- 🟢 LA ZONE DE CONFIGURATION GLOBALE (AVEC TEMPLATES) 🟢 -->
+    <!-- "afficher: true" = visible sur le site | "afficher: false" = gardé en réserve (invisible) -->
+    <!-- ============================================================================================== -->
+    <script>
+    const CONFIG = {
+        
+        // --- 1. PARAMÈTRES GLOBAUX ---
+        logo_officiel: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPHi-pbziAdBOQ6ip6PfsVnxPYlSMisjkRmQ&s",
+        fond_accueil: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/585791213_122105613429107768_2568287318481495702_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uuoJw2uR36EQ7kNvwFvqnm6&_nc_oc=AdpVuBUdhMEmz-MxTtbTBP3rLPYAvKdXbORdWdXZzgiPRDevSaPrIkpgMGYv7FVQYTw&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=t0xKUgDZRbcA8QCD_jkKoA&_nc_ss=7b289&oh=00_Af49YUhdU8UMm9Phgc7OuWkEWFlwwDmdSI41t4sn4ec-yw&oe=6A1C42F3",
+        fond_agenda: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+        photo_coffee_lab: "https://alchemists.coffee/cdn/shop/files/coffee-lab-bruxelles-exterieur.png?v=1762437604&width=1658",
+        
+        email_contact: "contact@coffeetime-bultia.be",
+        lien_google_maps: "https://www.google.com/maps/search/Coffee+Time+Bultia+Gerpinnes/",
+        lien_wetransfer: "https://wetransfer.com/",
+        lien_boutique_alchemists: "https://alchemists.coffee/collections/cafes",
+
+        // --- 2. AGENDA ---
+        agenda: [
+            { afficher: true, jour: "20", mois: "Juin", titre: "Event: Brocante des Quais", desc: "Venez nous rendre visite durant la brocante des quais de Charleroi.", lien: "https://www.facebook.com/CoffeeTimeBultia" },
+            { afficher: true, jour: "21", mois: "Juin", titre: "Event: Brocante des Quais", desc: "Venez nous rendre visite durant la brocante des quais de Charleroi.", lien: "https://www.facebook.com/CoffeeTimeBultia" },
+            { afficher: true, jour: "27", mois: "Juin", titre: "Event: Belgique VS N-Z", desc: "Diffusion du match de foot dés 05h00.", lien: "https://www.facebook.com/CoffeeTimeBultia" },
+            { afficher: true, jour: "28", mois: "Juin", titre: "Brunch du mois", desc: "Style Manouch avec Sangria.", lien: "https://www.facebook.com/CoffeeTimeBultia" },
+            // TEMPLATE Copy/paste :
+            { afficher: false, jour: "00", mois: "Mois", titre: "TEMPLATE AGENDA", desc: "Description de l'événement à venir", lien: "https://www.facebook.com/CoffeeTimeBultia" }
+        ],
+
+        // --- 4. LA BOUTIQUE ---
+        boutique: [
+            { afficher: true, nom: "Colonel Arthemus", origine: "Brésil", genre: "Genre : Chocolat, Noisette & Pomme", prix: "10,80€", img: "https://alchemists.coffee/cdn/shop/files/ColonelArthemus_7e0b3f5f-33d7-41f1-b8b3-e17a69a512b9.png?v=1762180249&width=1000", lien: "https://alchemists.coffee/products/colonel-arthemus" },
+            { afficher: true, nom: "Miss Mina", origine: "Ethiopie", genre: "Corps plein, douceur juteuse, acidité vive", prix: "12,20€", img: "https://alchemists.coffee/cdn/shop/files/MissMina.png?v=1762180406&width=1000", lien: "https://alchemists.coffee/products/miss-mina" },
+            { afficher: true, nom: "Sir James", origine: "Kayanza, Burundi", genre: "Agrumes, chocolat, fruits secs", prix: "10,60€", img: "https://alchemists.coffee/cdn/shop/files/SirJames_266fbd0b-7944-475c-81b6-c9698d63d655.png?v=1762437047&width=1000", lien: "https://alchemists.coffee/products/sir-james" },
+            { afficher: true, nom: "Java Script", origine: "Indonesia", genre: "Fruits tropicaux, Chocolat Noir & Notes vineuses", prix: "13,90€", img: "https://alchemists.coffee/cdn/shop/files/JavaScript.png?v=1772801885&width=1000", lien: "https://alchemists.coffee/products/java-script" },
+            { afficher: true, nom: "Dark Eight", origine: "Peru,Amazonas", genre: "Citron, Abricot & Chocolat Noir", prix: "13,40€", img: "https://alchemists.coffee/cdn/shop/files/DarkEight.png?v=1772814492&width=1000", lien: "https://alchemists.coffee/products/dark-eight" },
+            { afficher: true, nom: "Akayaga Hills", origine: "Rwanda, Rutsiro District", genre: "Ice Tea, Mélasse & Notes beurrée", prix: "13,40€", img: "https://alchemists.coffee/cdn/shop/files/Akayaga.png?v=1772809040&width=1000", lien: "https://alchemists.coffee/products/akayaga-hills" },
+            { afficher: true, nom: "Cima Simone", origine: "Burundi, Kayanza", genre: "Myrtilles, Olives & Caramel", prix: "15,90€", img: "https://alchemists.coffee/cdn/shop/files/CimaSimone.png?v=1777129136&width=1000", lien: "https://alchemists.coffee/products/cima-simone" },
+            { afficher: true, nom: "Free to sleep", origine: "Colombie", genre: "Déca", prix: "13,20€", img: "https://alchemists.coffee/cdn/shop/files/speciality-coffee-FreetoSleep-deca.png?v=1764177627&width=1000", lien: "https://alchemists.coffee/products/free-to-sleep" },
+            { afficher: true, nom: "Lucid Bloom", origine: "Colombie", genre: "Citronnelle, Tamarin & Chocolat", prix: "25,40€", img: "https://alchemists.coffee/cdn/shop/files/LucidBloom.png?v=1772805164&width=1000", lien: "https://alchemists.coffee/products/lucid-bloom" },
+            { afficher: true, nom: "Passion Paradox", origine: "Colombie", genre: "Fruit de la passion et cholupa", prix: "25,10€", img: "https://alchemists.coffee/cdn/shop/files/Passion.png?v=1777131716&width=1000", lien: "https://alchemists.coffee/products/passion-paradox" },
+            
+            // TEMPLATE CACHÉ :
+            { afficher: false, nom: "TEMPLATE PACK", origine: "Origine", genre: "Type", prix: "00,00€", img: "URL_IMAGE", lien: "URL_BOUTIQUE" }
+        ],
+
+        // --- 7. ATELIERS ALCHEMISTS ---
+        ateliers: [
+            { afficher: true, titre: "Formation Barista", meta: "🗓️ Prochaine édition : 14 mai | 625€", desc: "Programme en 8 sessions pour maîtriser l'art du café." },
+            { afficher: true, titre: "Latte Art", meta: "🗓️ Prochaine édition : 31 mai | 90€", desc: "Donnez-vous les moyens de vos ambitions avec le Latte Art !" },
+            { afficher: true, titre: "L'Espresso Parfait", meta: "🗓️ Prochaine édition : 30 mai | 90€", desc: "Toutes les clés pour réussir votre espresso chez vous !" },
+            // TEMPLATE CACHÉ :
+            { afficher: false, titre: "TEMPLATE ATELIER", meta: "🗓️ Date | Prix", desc: "Description de l'atelier" }
+        ],
+
+        // --- 5. LES 10 AVIS GOOGLE ---
+        avis: [
+            { afficher: true, auteur: "Marvin Vullo", etoiles: "★★★★★", texte: "Première fois que je viens dans ce lieu et franchement, un endroit très agréable, très calme pour venir boire un excellent cappuccino et aussi un excellent matcha fait par une personne très gentille qui conseille super bien et très … Plus" },
+            { afficher: true, auteur: "N P (Np)", etoiles: "★★★★★", texte: "Teste et approuvé! Des que vous passez le pas de la porte de ce coffee time, le cadre et l'ambiance vous invitent a la détente, au tea Time ou coffee time...on est au chaud comme dans son salon.. … Plus" },
+            { afficher: true, auteur: "Jade Deboodt", etoiles: "★★★★★", texte: "Joli petit café dans le complexe du Bultia, c'est ce genre de commerces qu'il manquait! Le propriétaire est un passionné et connaisseur qui peut vous aiguiller pour goûter des cafés d'exceptions. Le cadre est cosy, calme et chaleureux, … Plus" },
+            { afficher: true, auteur: "Jérôme Lagneau", etoiles: "★★★★★", texte: "Terrible endroit! Enfin des cafés de spécialités et de super qualité dans la région! Beau cadre,top service,le patron est d’une gentillesse et d’une culture sans … Plus" },
+            { afficher: true, auteur: "Véronique Couture", etoiles: "★★★★★", texte: "Pour les amateurs de café ! Une belle découverte, endroit très agréable et accueil au top !" },
+            { afficher: true, auteur: "Tom Wart", etoiles: "★★★★★", texte: "Superbe nouveauté au Bultia ! Le café est délicieux, pressé à la main par des barista champions de Belgique... L'équipe est chaleureuse, l'endroit est cozy, À DÉCOUVRIR DE TOUTE URGENCE !!! Plus" },
+            { afficher: true, auteur: "Maena Prosperi", etoiles: "★★★★★", texte: "Je me suis déjà rendue à plusieurs reprises dans ce petit café et c’est toujours un vrai plaisir. Le gérant est absolument génial, accueillant et passionné, ce qui rend l’expérience encore plus agréable. L’ambiance est super cozy, on s’y … Plus" },
+            { afficher: true, auteur: "Wendy Brogneaux", etoiles: "★★★★★", texte: "Une expérience très agréable, conseils, connaissances parfaites. Ambiance très décontractée. Adresse à ne pas manquer. … Plus" },
+            { afficher: true, auteur: "Valerie", etoiles: "★★★★★", texte: "Très chouette découverte. L'endroit est cosy et chaleureux. Il y a une belle variété de cafés et de douceurs. N'hésitez pas... Plus" },
+            { afficher: true, auteur: "Maxime Yernaux", etoiles: "★★★★★", texte: "Ambiance très agréable et produits de qualité ! Ça donne envie de découvrir le café sous tous les angles 😁 … Plus" },
+            // TEMPLATE CACHÉ :
+            { afficher: false, auteur: "TEMPLATE AVIS", etoiles: "★★★★★", texte: "Texte de l'avis" }
+        ],
+
+        // --- 6. PHOTOS GALERIE ---
+        galerie: [
+            { afficher: true, url: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/585791213_122105613429107768_2568287318481495702_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uuoJw2uR36EQ7kNvwFvqnm6&_nc_oc=AdpVuBUdhMEmz-MxTtbTBP3rLPYAvKdXbORdWdXZzgiPRDevSaPrIkpgMGYv7FVQYTw&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=t0xKUgDZRbcA8QCD_jkKoA&_nc_ss=7b289&oh=00_Af49YUhdU8UMm9Phgc7OuWkEWFlwwDmdSI41t4sn4ec-yw&oe=6A1C42F3" },
+            { afficher: true, url: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/587794840_122105613477107768_2634626018650161349_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=OK-h9D3CBq8Q7kNvwFXCMIe&_nc_oc=Adqwz2Whu7_butjZYyOExNv7cy3La7U5k9H4vhepdEVuJKf9LSs7BGz8-Y0ifkuYztI&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=imoLE_VLz91Ndokyglus8w&_nc_ss=7b289&oh=00_Af4XKTT76ghYrDw78dKsFlQDFEIhrwbSQMrgz5uChoRYJw&oe=6A1C3E0B" },
+            { afficher: true, url: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/587395553_122105613525107768_8663401229076618659_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=jSFSnybF7qsQ7kNvwGXLMV0&_nc_oc=Adr8WAkell50qfzGNVNY8O56X9Qfp3bUHL0uudJsvsoUxjethiv-Vm8sM_4HzCD6qP0&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=ZvnrPYzqIvN31jCWj5dkPQ&_nc_ss=7b289&oh=00_Af6WHWUKMzBQwLhMpiR1bxIX7HJ7f02d_nNMJKxXtukkRw&oe=6A1C2E5F" },
+            { afficher: true, url: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/589101558_122105613567107768_7697268277451890959_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Sqifc4zr-YkQ7kNvwFDXAFI&_nc_oc=Adp55dp6lrAtcFdw1g97evlhC6Q2vZ2n_hdRJbGr4gAfpCNOuqvsVo63Rwh6HHMArmY&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=FpCFq-_EFSiLh098jRff1Q&_nc_ss=7b289&oh=00_Af5kyOpchYi6GYL_rv8nMB_uj7i7_trOZed3UlPHlzdQbA&oe=6A1C250" },
+            { afficher: true, url: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/587787399_122105613609107768_1520498031863721867_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=oAU3coaFdkYQ7kNvwHym65K&_nc_oc=AdoOm0rETAHyqtiOWzhk0dodkc3HC2Z4oWNUxf-OCYlt3rekh0tsP3O3CIPpZ-daNJo&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=mBA4a_q2lxHH8npCNOTN1Q&_nc_ss=7b289&oh=00_Af7GcdfMfMD_8I7LPiuOQelTmrmoxDLOxYLJs5nMSseU0A&oe=6A1C2324" },
+            { afficher: true, url: "https://scontent-bru2-1.xx.fbcdn.net/v/t39.30808-6/587821263_122105613651107768_7771314685872913276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=hWMzm6G6x28Q7kNvwGqdy7H&_nc_oc=Ado1ZfkhdiWUg1z3Rvkd9jCDiio-OvDpAiOj6IWctpy38NafG3tKQRfwpaK6AA5sPHw&_nc_zt=23&_nc_ht=scontent-bru2-1.xx&_nc_gid=s6fCOwqwZZsPMbs15Anyzw&_nc_ss=7b289&oh=00_Af4rKXKDpSEKRzQUT-ZSqd6crCv-BVTJt-UIlGny_LfuuA&oe=6A1C3199" },
+            // TEMPLATE CACHÉ :
+            { afficher: false, url: "URL_DE_LA_PHOTO_ICI" }
+        ],
+
+        // --- 7. LA CARTE COMPLÈTE ---
+        carte: {
+            colonne_1: [
+                {
+                    afficher: true, titre: "En Noir...",
+                    produits: [
+                        { afficher: true, nom: "Espresso", prix: "3.50€", desc: "" },
+                        { afficher: true, nom: "Americano (court)", prix: "4.00€", desc: "" },
+                        { afficher: true, nom: "Doppio", prix: "4.50€", desc: "Double espresso" },
+                        { afficher: true, nom: "Filtre", prix: "8.00€", desc: "Choisissez votre méthode et votre café" }
+                    ]
+                },
+                {
+                    afficher: true, titre: "...en Blanc",
+                    produits: [
+                        { afficher: true, nom: "Cappuccino", prix: "4.50€", desc: "" },
+                        { afficher: true, nom: "Flat White", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Latte Macchiato", prix: "5.50€", desc: "" },
+                        { afficher: true, nom: "Irish Coffee", prix: "9.00€", desc: "" },
+                        { afficher: true, nom: "Affogato", prix: "7.00€", desc: "Glace vanille et double espresso" }
+                    ]
+                },
+                {
+                    afficher: true, titre: "Les Lattes",
+                    produits: [
+                        { afficher: true, nom: "London Velvet", prix: "", desc: "Earl Grey, lait d'avoine, sirop d'érable, shot café" },
+                        { afficher: true, nom: "Latte Praliné", prix: "6.00€", desc: "" },
+                        { afficher: true, nom: "Matcha Latte", prix: "6.00€", desc: "" },
+                        { afficher: true, nom: "Masala Chai Latte", prix: "6.00€", desc: "" },
+                        { afficher: true, nom: "Chocolat Chaud", prix: "6.00€", desc: "" }
+                    ]
+                }
+            ],
+            colonne_2: [
+                {
+                    afficher: true, titre: "Froid / Frappé",
+                    produits: [
+                        { afficher: true, nom: "Café / London / Praliné", prix: "7.00€", desc: "" },
+                        { afficher: true, nom: "Matcha / Chai", prix: "7.00€", desc: "" }
+                    ]
+                },
+                {
+                    afficher: true, titre: "En infusion & Frais",
+                    produits: [
+                        { afficher: true, nom: "Thé / Tisane", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Thé vert menthe fraiche", prix: "7.00€", desc: "" },
+                        { afficher: true, nom: "Cascara", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Bissap", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Thé glacé", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Cold brew", prix: "6.00€", desc: "" }
+                    ]
+                },
+                {
+                    afficher: true, titre: "Pour accompagner",
+                    produits: [
+                        { afficher: true, nom: "Tartes et Cakes", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Cookies", prix: "4.00€", desc: "(Voir notre carte près du frigo)" }
+                    ]
+                }
+            ],
+            colonne_3: [
+                {
+                    afficher: true, titre: "Les Fruits",
+                    produits: [
+                        { afficher: true, nom: "Jus d'orange pressé", prix: "6.00€", desc: "" },
+                        { afficher: true, nom: "Espresso pamplemousse", prix: "7.00€", desc: "" },
+                        { afficher: true, nom: "Squash", prix: "", desc: "Orange, citron et pamplemousse pressé" },
+                        { afficher: true, nom: "Citronnade minute", prix: "6.00€", desc: "Nature - sureau - romarin - menthe - verveine - gingembre" },
+                        { afficher: true, nom: "Jus de pomme artisanal", prix: "4.50€", desc: "Pomme - Pomme/poire - Pomme/cerise" }
+                    ]
+                },
+                {
+                    afficher: true, titre: "Côté Brasserie & Vin",
+                    produits: [
+                        { afficher: true, nom: "Orval", prix: "6.00€", desc: "" },
+                        { afficher: true, nom: "Bière du moment", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Ginger Fire", prix: "6.00€", desc: "Shot chaud ou allongé glacé" },
+                        { afficher: true, nom: "Vin blanc", prix: "5.00€", desc: "" },
+                        { afficher: true, nom: "Maitrank maison", prix: "7.00€", desc: "Apéritif base de vin blanc, cognac, aspérule odorante et orange" }
+                    ]
+                },
+                // TEMPLATE CATEGORIE CACHÉE POUR L'AVENIR :
+                {
+                    afficher: false, titre: "Nouveautés (TEMPLATE)",
+                    produits: [
+                        { afficher: true, nom: "Nouveau produit", prix: "0.00€", desc: "Description" }
+                    ]
+                }
+            ]
+        }
+    };
+    </script>
+    <!-- ============================================================================================== -->
+    <!-- FIN DE LA ZONE DE CONFIGURATION -->
+    <!-- ============================================================================================== -->
+
+    <style>
+        @font-face {
+            font-family: 'Kris Kringle';
+            src: url('KrisKringle.ttf') format('truetype'), url('KrisKringle.woff') format('woff');
+            font-weight: normal; font-style: normal;
+        }
+
+        :root {
+            --bg-color: #FAF6F0; --text-main: #2A1C15; --text-light: #6E5C53; 
+            --accent: #B87A4A; --dark-accent: #1C110A; --white: #FFFFFF; --gold: #D4AF37;
+            --font-title: 'Kris Kringle', serif; --font-body: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+        .section { padding: 90px 5vw; background-color: var(--white); }
+        .section-alt { padding: 90px 5vw; background-color: var(--bg-color); }
+        .section-title { font-family: var(--font-title); font-size: 4rem; margin-bottom: 25px; text-align: center; font-weight: normal; color: var(--text-main); letter-spacing: 2px;}
+        .btn { display: inline-block; padding: 14px 35px; background-color: var(--accent); color: var(--white); text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; font-size: 0.9rem; border-radius: 4px; transition: all 0.3s ease; border: 1px solid var(--accent); cursor: pointer;}
+        .btn:hover { background-color: transparent; color: var(--accent); }
+
+        /* NAV */
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.4s ease; }
+        nav.scrolled { background-color: rgba(250, 246, 240, 0.98); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .brand-logo img { height: 50px; width: 50px; border-radius: 5px; transition: transform 0.3s; object-fit: cover;}
+        .brand-logo img:hover { transform: scale(1.05); }
+        .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap;}
+        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent); }
+        nav.scrolled .nav-links a { color: var(--text-main); }
+
+        /* HERO */
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); padding: 0 20px; }
+        .hero-main-logo { width: 100%; max-width: 300px; height: 300px; object-fit: cover; border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 15px 40px rgba(0,0,0,0.5); margin-bottom: 40px; transition: transform 0.5s ease; }
+        .hero-main-logo:hover { transform: scale(1.03); }
+        .subtitle { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);}
+
+        /* HISTOIRE */
+        .story-text { color: var(--text-light); font-size: 1.2rem; line-height: 1.9; font-style: italic; text-align: center; max-width: 800px; margin: 0 auto; }
+        .story-text strong { color: var(--accent); font-weight: 600; }
+
+        /* AGENDA */
+        .section-agenda { padding: 100px 10vw; color: var(--white); }
+        .agenda-header { text-align: center; margin-bottom: 60px; }
+        .agenda-header h2 { color: var(--white); margin-bottom: 15px; }
+        .agenda-desc { color: #D7CCC8; font-style: italic; font-size: 1.1rem; }
+        .agenda-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;}
+        
+        /* Lien ajouté sur l'agenda */
+        .agenda-card { display: flex; align-items: center; gap: 25px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease; text-decoration: none; color: var(--white);}
+        .agenda-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.1); border-color: var(--accent); }
+        
+        .date-badge { display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--accent); color: var(--white); min-width: 80px; height: 80px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .date-badge .day { font-family: var(--font-title); font-size: 2.2rem; line-height: 1; }
+        .date-badge .month { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;}
+        .agenda-info h4 { font-family: var(--font-title); font-size: 2rem; color: var(--white); margin-bottom: 5px; }
+        .agenda-info p { color: #D7CCC8; font-size: 0.95rem; }
+
+        /* CARTE */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 60px; max-width: 1300px; margin: 0 auto;}
+        .menu-category { margin-bottom: 40px; }
+        .menu-category h3 { font-family: var(--font-title); font-size: 2.5rem; color: var(--accent); margin-bottom: 25px; border-bottom: 1px solid var(--accent); padding-bottom: 10px; }
+        .menu-item { margin-bottom: 20px; }
+        .item-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 5px; }
+        .item-name { font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main);}
+        .item-dots { flex-grow: 1; border-bottom: 2px dotted #E0D5C1; margin: 0 15px; opacity: 0.7; }
+        .item-price { font-family: var(--font-body); font-weight: 600; color: var(--accent); font-size: 1.1rem; }
+        .item-desc { color: var(--text-light); font-size: 0.9rem; font-style: italic; }
+        .special-note { background-color: var(--white); padding: 20px; border-left: 3px solid var(--accent); margin-top: 20px; font-weight: 500; font-size: 0.95rem;}
+
+        /* BOUTIQUE */
+        .shop-slider-wrapper { position: relative; max-width: 1400px; margin: 40px auto; padding: 0 30px;}
+        .shop-slider { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; scroll-snap-type: x mandatory; padding-bottom: 20px;}
+        .shop-slider::-webkit-scrollbar { display: none; }
+        .coffee-pack { flex: 0 0 calc(20% - 16px); min-width: 250px; scroll-snap-align: start; background: var(--bg-color); padding: 30px 20px; border-radius: 12px; text-align: center; text-decoration: none; color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;}
+        .coffee-pack:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: var(--accent); }
+        .pack-img { width: 100%; height: 220px; object-fit: contain; margin-bottom: 20px; }
+        .pack-title { font-family: var(--font-title); font-size: 2.2rem; margin-bottom: 10px; color: var(--text-main); font-weight: normal; line-height: 1.1;}
+        .pack-origin { display: inline-block; background: var(--white); border: 1px solid var(--accent); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 15px;}
+        .pack-genre { display: block; font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px;}
+        .pack-price { font-size: 0.95rem; color: #8A7B72; margin-top: auto; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; font-style: italic;}
+        .slider-btn { position: absolute; top: 40%; transform: translateY(-50%); background: var(--white); color: var(--accent); border: 2px solid var(--accent); border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; z-index: 10; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
+        .slider-btn.left { left: -10px; } .slider-btn.right { right: -10px; }
+
+        /* ========================================================= */
+        /* COMMUNAUTE (ASTUCE "ZERO SACCADE" POUR MARQUEE INFINI) */
+        /* ========================================================= */
+        .marquee-wrapper { display: flex; overflow: hidden; width: 100vw; margin-left: -5vw; padding: 20px 0; }
+        .marquee-track { display: flex; animation: scrollMarquee 40s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+        /* La magie du gap inclus DANS le padding de fin pour une boucle parfaite */
+        .marquee-content { display: flex; gap: 30px; padding-right: 30px; }
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .speech-bubble { width: 320px; background: var(--white); border-radius: 15px; padding: 30px; position: relative; white-space: normal; box-shadow: 0 10px 25px rgba(0,0,0,0.06); display: flex; flex-direction: column; color: var(--text-main); text-decoration: none; transition: transform 0.3s;}
+        .speech-bubble:hover { transform: scale(1.02); }
+        .speech-bubble::after { content: ''; position: absolute; bottom: -15px; left: 40px; border-width: 15px 15px 0; border-style: solid; border-color: var(--white) transparent transparent transparent; }
+        .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .review-text { font-style: italic; color: var(--text-light); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.7;}
+        .review-author { font-weight: 600; font-family: var(--font-title); font-size: 1.5rem;}
+        
+        .gallery-img { width: 350px; height: 350px; object-fit: cover; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .btn-wetransfer { background-color: #409FFF; border-color: #409FFF; margin-top: 20px;}
+        .btn-wetransfer:hover { color: #409FFF; background-color: transparent; }
+
+        /* ACTUALITES ALCHEMISTS */
+        .alchemist-lab-banner { display: flex; background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 50px; text-decoration: none; color: var(--text-main); transition: transform 0.3s; max-width: 1100px; margin: 0 auto 50px auto;}
+        .alchemist-lab-banner:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .lab-img { width: 50%; object-fit: cover; }
+        .lab-content { width: 50%; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .lab-content h3 { font-family: var(--font-title); font-size: 3rem; color: var(--accent); margin-bottom: 15px; line-height: 1.1;}
+        .lab-tag { display: inline-block; background: var(--bg-color); color: var(--text-main); padding: 6px 18px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; margin-bottom: 20px; align-self: flex-start;}
+        
+        .workshops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto;}
+        .workshop-card { background: var(--white); padding: 30px; border-radius: 10px; border-top: 4px solid var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.04); text-decoration: none; color: var(--text-main); transition: transform 0.3s; display: flex; flex-direction: column; justify-content: center;}
+        .workshop-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .ws-title { font-family: var(--font-title); font-size: 2rem; margin-bottom: 10px; color: var(--text-main); }
+        .ws-meta { font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 15px; display: block; text-transform: uppercase; letter-spacing: 1px;}
+        
+        /* Cellule "Sur Demande" étirée en dur (non modifiable) */
+        .workshop-card.full-width { grid-column: 1 / -1; align-items: center; text-align: center; border-top-color: var(--dark-accent); }
+
+        /* FOOTER & NETLIFY FORM */
+        footer { background-color: var(--dark-accent); color: var(--white); text-align: center; padding: 80px 20px; border-top: 2px solid var(--accent);}
+        .hours { margin: 20px 0; font-size: 1rem; color: var(--accent); font-weight: 600; border: 1px solid var(--accent); display: inline-block; padding: 15px 25px; border-radius: 5px; }
+        .newsletter-form { display: flex; justify-content: center; gap: 10px; margin: 30px auto; max-width: 500px; }
+        .newsletter-form input { flex-grow: 1; padding: 15px 20px; border-radius: 5px; border: none; font-family: var(--font-body); outline: none; font-size: 1rem;}
+
+        @media (max-width: 1000px) {
+            nav { flex-direction: column; padding: 15px; gap: 15px;}
+            .nav-links { justify-content: center; }
+            .coffee-pack { flex: 0 0 calc(50% - 10px); }
+            .slider-btn { display: none; }
+            .alchemist-lab-banner { flex-direction: column; }
+            .lab-img { width: 100%; height: 250px; }
+            .lab-content { width: 100%; padding: 30px; }
+            .agenda-container { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .coffee-pack { flex: 0 0 100%; }
+            .newsletter-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="#" class="brand-logo"><img id="dyn-logo-nav" alt="Logo Coffee Time"></a>
+        <div class="nav-links">
+            <a href="#story">L'Histoire</a><a href="#agenda">Agenda</a><a href="#menu">La Carte</a>
+            <a href="#boutique">Boutique</a><a href="#communaute">Avis & Galerie</a><a href="#news">Actualités</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="dyn-hero-bg">
+        <img id="dyn-logo-hero" alt="Coffee Time Logo" class="hero-main-logo">
+        <p class="subtitle">L'artisanat & la convivialité au cœur du Bultia</p>
+    </header>
+
+    <!-- HISTOIRE -->
+    <section id="story" class="section">
+        <h2 class="section-title">Une Affaire de Famille</h2>
+        <p class="story-text">Derrière chaque tasse servie au Coffee Time se cache une véritable passion familiale. <strong>Thierry</strong>, notre gérant, a à cœur de vous proposer une expérience authentique et chaleureuse. C'est pourquoi l'intégralité de nos grains de spécialité est torréfiée de manière artisanale à Ixelles chez <strong>Alchemist</strong>, le réputé café tenu par son frère.</p>
+    </section>
+
+    <!-- AGENDA -->
+    <section id="agenda" class="section-agenda">
+        <div class="agenda-header"><h2 class="section-title" style="color: var(--white);">Agenda & Événements</h2><p class="agenda-desc">Ateliers, dégustations, afterworks... Ne manquez rien au Coffee Time.</p></div>
+        <div class="agenda-list" id="agenda-container">
+            <!-- Rempli automatiquement par la CONFIG -->
+        </div>
+    </section>
+
+    <!-- CARTE -->
+    <section id="menu" class="section-alt">
+        <h2 class="section-title">Notre Carte</h2>
+        <p style="text-align: center; color: var(--text-light); font-style: italic; margin-bottom: 60px;">Sur place ou à emporter</p>
+        
+        <div class="menu-grid" id="menu-container">
+            <div class="menu-column" id="menu-col-1"></div>
+            <div class="menu-column" id="menu-col-2">
+                <!-- Supplément lait injecté en JS -->
+            </div>
+            <div class="menu-column" id="menu-col-3"></div>
+        </div>
+    </section>
+
+    <!-- BOUTIQUE -->
+    <section id="boutique" class="section">
+        <h2 class="section-title">Notre sélection de Grains</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 20px;">Torréfiés artisanalement par Alchemists Coffee à Ixelles.</p>
+        <div style="text-align: center; margin-bottom: 40px;"><a id="dyn-btn-alchemists" target="_blank" class="btn">Voir toute la boutique Alchemists</a></div>
+
+        <div class="shop-slider-wrapper">
+            <button class="slider-btn left" onclick="slideBoutique(-1)">&#10094;</button>
+            <div class="shop-slider" id="boutiqueSlider">
+                <!-- Rempli automatiquement par la CONFIG -->
+            </div>
+            <button class="slider-btn right" onclick="slideBoutique(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- COMMUNAUTE (AVIS ET PHOTOS EN BOUCLE) -->
+    <section id="communaute" class="section-alt">
+        <h2 class="section-title">Ce que disent nos clients & Instants Partagés</h2>
+        
+        <!-- Piste d'animation Avis (Zéro saccade) -->
+        <div class="marquee-wrapper">
+            <div class="marquee-track" id="avis-track">
+                <!-- Injecté en JS -->
+            </div>
+        </div>
+
+        <!-- Piste d'animation Photos (Zéro saccade) -->
+        <div class="marquee-wrapper" style="padding-top: 0;">
+            <div class="marquee-track" id="galerie-track">
+                <!-- Injecté en JS -->
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <p style="margin-bottom: 15px; color: var(--text-light); font-style: italic;">Vous avez pris de belles photos lors de votre visite ? Partagez-les avec nous !</p>
+            <a id="dyn-btn-wetransfer" target="_blank" class="btn btn-wetransfer">Envoie-nous tes photos / vidéos</a>
+        </div>
+    </section>
+
+    <!-- ACTUALITES ALCHEMISTS -->
+    <section id="news" class="section">
+        <h2 class="section-title">Actualités & Ateliers d'Alchemists</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 50px; font-size: 1.1rem;">Découvrez les formations de notre famille torréfactrice.</p>
+
+        <a href="https://www.google.com/maps/place/Rue+de+la+Cr%C3%A8che+21,+1050+Ixelles" target="_blank" class="alchemist-lab-banner">
+            <img id="dyn-coffee-lab" alt="Coffee Lab" class="lab-img">
+            <div class="lab-content">
+                <span class="lab-tag">📍 Rue de la Crèche 21, 1050 Ixelles</span>
+                <h3>Le Coffee Lab d'Alchemists</h3>
+                <p>Entrez, on a du café et des histoires à partager ! Notre coffee shop, c'est un peu notre labo ouvert où l'on sert les cafés torréfiés sur place.</p>
+            </div>
+        </a>
+
+        <div class="workshops-grid" id="ateliers-container">
+            <!-- Ateliers injectés ici par CONFIG -->
+            
+            <!-- La Cellule "Sur Demande" étirée en largeur (En dur) -->
+            <a href="mailto:team@alchemists.coffee" class="workshop-card full-width">
+                <span class="ws-meta" style="color: var(--dark-accent);">✉️ Sur demande</span>
+                <h4 class="ws-title">Une prestation privée ?</h4>
+                <p>Team building, réunions d'entreprise, dégustations privées, lancements de produits... Organisons ensemble un événement sur mesure autour du café de spécialité.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER & NETLIFY FORM -->
+    <footer>
+        <h4 style="font-family: var(--font-title); font-size: 3rem; color: var(--accent); margin-bottom: 20px;">Coffee Time</h4>
+        <p style="font-size: 1.1rem;">Centre commercial du Bultia<br>Rue Neuve 41, 6280 Gerpinnes</p>
+        <div class="hours">Ouvert tous les jours de 8h30 à 17h30<br>Sauf le lundi (Fermé)</div>
+        
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px auto; max-width: 600px;">
+
+        <h4 style="font-family: var(--font-title); font-size: 2.2rem; color: var(--accent); margin-bottom: 15px;">Privatisation & Événements</h4>
+        <p style="color: #D7CCC8; max-width: 700px; margin: 0 auto 25px; font-size: 1.05rem; line-height: 1.8;">Vous cherchez un lieu chaleureux pour votre prochain afterwork ou événement privé ? Parlons de votre projet autour d'une bonne tasse !</p>
+        <a id="dyn-btn-mail" class="btn" style="margin-bottom: 20px; border-radius: 30px;">✉️ Discutons de votre événement</a>
+
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px auto; max-width: 600px;">
+
+        <h4 style="font-family: var(--font-title); font-size: 2rem; margin-bottom: 5px; color: var(--white);">Abonnez-vous à notre Newsletter</h4>
+        <p style="font-size: 1rem; color: #D7CCC8;">Des nouvelles origines, des ateliers, de la bonne humeur.</p>
+        
+        <!-- Formulaire "Netlify Forms" -->
+        <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form">
+            <input type="hidden" name="form-name" value="newsletter" />
+            <input type="email" name="email" placeholder="Votre adresse e-mail" required>
+            <button type="submit" class="btn">S'inscrire</button>
+        </form>
+    </footer>
+
+    <!-- LE MOTEUR JAVASCRIPT QUI CONSTRUIT LE SITE -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Paramètres simples
+            document.getElementById('dyn-logo-nav').src = CONFIG.logo_officiel;
+            document.getElementById('dyn-logo-hero').src = CONFIG.logo_officiel;
+            document.getElementById('dyn-hero-bg').style.background = `linear-gradient(rgba(28, 17, 10, 0.5), rgba(28, 17, 10, 0.5)), url('${CONFIG.fond_accueil}') center/cover`;
+            document.getElementById('agenda').style.background = `linear-gradient(rgba(28, 17, 10, 0.85), rgba(28, 17, 10, 0.85)), url('${CONFIG.fond_agenda}') center/cover fixed`;
+            document.getElementById('dyn-coffee-lab').src = CONFIG.photo_coffee_lab;
+            
+            document.getElementById('dyn-btn-alchemists').href = CONFIG.lien_boutique_alchemists;
+            document.getElementById('dyn-btn-wetransfer').href = CONFIG.lien_wetransfer;
+            document.getElementById('dyn-btn-mail').href = "mailto:" + CONFIG.email_contact;
+
+            // 2. AGENDA
+            const agendaHtml = CONFIG.agenda.filter(ev => ev.afficher).map(ev => `
+                <a href="${ev.lien}" target="_blank" class="agenda-card">
+                    <div class="date-badge"><span class="day">${ev.jour}</span><span class="month">${ev.mois}</span></div>
+                    <div class="agenda-info"><h4>${ev.titre}</h4><p>${ev.desc}</p></div>
+                </a>
+            `).join('');
+            document.getElementById('agenda-container').innerHTML = agendaHtml;
+
+            // 3. BOUTIQUE (Redirection directe via le lien)
+            const boutiqueHtml = CONFIG.boutique.filter(pack => pack.afficher).map(pack => `
+                <a href="${pack.lien}" target="_blank" class="coffee-pack">
+                    <img src="${pack.img}" alt="${pack.nom}" class="pack-img">
+                    <h4 class="pack-title">${pack.nom}</h4>
+                    <span class="pack-origin">📍 Origine : ${pack.origine}</span>
+                    <span class="pack-genre">☕ Genre : ${pack.genre}</span>
+                    <p class="pack-price">Prix : ${pack.prix}</p>
+                </a>
+            `).join('');
+            document.getElementById('boutiqueSlider').innerHTML = boutiqueHtml;
+
+            // 4. ATELIERS
+            const ateliersHtml = CONFIG.ateliers.filter(at => at.afficher).map(at => `
+                <a href="${CONFIG.lien_boutique_alchemists}" target="_blank" class="workshop-card">
+                    <span class="ws-meta">${at.meta}</span>
+                    <h4 class="ws-title">${at.titre}</h4>
+                    <p>${at.desc}</p>
+                </a>
+            `).join('');
+            document.getElementById('ateliers-container').insertAdjacentHTML('afterbegin', ateliersHtml);
+
+            // 5. CARTE
+            function buildMenuCol(colData) {
+                return colData.filter(cat => cat.afficher).map(cat => `
+                    <div class="menu-category">
+                        <h3>${cat.titre}</h3>
+                        ${cat.produits.filter(p => p.afficher).map(p => `
+                            <div class="menu-item">
+                                <div class="item-header"><span class="item-name">${p.nom}</span><span class="item-dots"></span><span class="item-price">${p.prix}</span></div>
+                                ${p.desc ? `<div class="item-desc">${p.desc}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('');
+            }
+            document.getElementById('menu-col-1').innerHTML = buildMenuCol(CONFIG.carte.colonne_1);
+            document.getElementById('menu-col-2').innerHTML = buildMenuCol(CONFIG.carte.colonne_2) + `<div class="special-note">Votre latté préféré en Supplément : +0.50€<br><span style="font-size: 0.85rem; font-weight: 400; font-style: italic;">Lait d'avoine - Extra shot - Décaféiné - Sirop</span></div>`;
+            document.getElementById('menu-col-3').innerHTML = buildMenuCol(CONFIG.carte.colonne_3);
+
+            // 6. AVIS GOOGLE (Zéro saccade - Double Content)
+            const avisContent = CONFIG.avis.filter(a => a.afficher).map(a => `
+                <a href="${CONFIG.lien_google_maps}" target="_blank" class="speech-bubble">
+                    <div class="stars">${a.etoiles}</div>
+                    <p class="review-text">"${a.texte}"</p>
+                    <p class="review-author">${a.auteur}</p>
+                </a>
+            `).join('');
+            // Le secret d'une boucle parfaite : créer 2 "blocs" complets avec le même espace à l'intérieur
+            const blocAvis = `<div class="marquee-content">${avisContent}</div>`;
+            document.getElementById('avis-track').innerHTML = blocAvis + blocAvis;
+
+            // 7. GALERIE PHOTOS (Zéro saccade - Double Content)
+            const galerieContent = CONFIG.galerie.filter(img => img.afficher).map(img => `<img src="${img.url}" class="gallery-img" alt="Coffee Time">`).join('');
+            const blocGalerie = `<div class="marquee-content">${galerieContent}</div>`;
+            document.getElementById('galerie-track').innerHTML = blocGalerie + blocGalerie;
+        });
+
+        // --- GESTION DU SLIDER BOUTIQUE (FLÈCHES) ---
+        function slideBoutique(direction) {
+            const slider = document.getElementById('boutiqueSlider');
+            if (slider) {
+                // On glisse de la largeur d'une carte (250px) + le gap (20px) = 270px
+                // Multiplié par 3 pour faire glisser 3 cartes d'un coup (très fluide !)
+                const scrollAmount = 270 * 3; 
+                slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        // --- NAV AU SCROLL ---
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                document.querySelectorAll('.nav-links a').forEach(a => a.style.color = '#2A1C15');
+            } else {
+                navbar.classList.remove('scrolled');
+                document.querySelectorAll('.nav-links a').forEach(a => a.style.color = '#FFFFFF');
+            }
+        });
+    </script>
+</body>
+</html>
